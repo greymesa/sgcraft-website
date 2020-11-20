@@ -1,4 +1,6 @@
 # sgcraft
 minecraft server website
 
-epic, just make a pull request for changes
+Website for my favorite mc server!
+
+make a change? make a pull request
