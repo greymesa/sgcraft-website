@@ -4,7 +4,7 @@
 
 body {
 	background: linear-gradient(rgba(20, 26, 35,0.55),rgba(20, 26, 35, 0.55)),
-				url("../img/minecraft.jpg") no-repeat center center fixed;
+				url("../img/background.png") no-repeat center center fixed;
 	background-size: cover;
 	font-family: "Open Sans", Helvetica;
 	margin: 0;
@@ -102,6 +102,18 @@ p {
 	margin: 0 2px;
 }
 
+.footer {
+    position: absolute;
+    bottom: 3px;
+    left: 3px;
+}
+
+.back {
+	position: absolute;
+    top: 15px;
+    left: 15px;
+}
+
 .extrapad {
 	padding: 0;
 }
@@ -128,6 +140,7 @@ p {
 	transition: all 0.2s ease;
 	margin-bottom: 7px;
 }
+
 
 .item img:hover {
 	-webkit-transform:scale(1.1);
