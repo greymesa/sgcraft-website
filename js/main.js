@@ -2,10 +2,6 @@
 const doParticles = true;
 
 
-
-
-// Do not mess with the rest of this file unless you know what you're doing :P
-
 function getWidth() { // credit to travis on stack overflow
   return Math.max(
     document.body.scrollWidth,
