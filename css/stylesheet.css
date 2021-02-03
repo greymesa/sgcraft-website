@@ -158,6 +158,11 @@ p {
 	color: white;
 }
 
+.logo {
+	max-width: 100%;
+	height: auto;
+  }
+
 .subtitle {
 	color: #cfcfcf;
 	font-size: 12px;
