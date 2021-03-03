@@ -51,6 +51,36 @@ p {
 	        animation-timing-function: ease-in-out;
 }
 
+.button {
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: white;
+	padding: 12px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+
+	border-radius: 8px;
+  }
+
+  .container a:link, a:visited {
+          
+	color: white;
+	border: 2px solid green;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+  }
+  
+  .container a:hover, a:active {
+	background-color: green;
+	color: white;
+  }
+
 
 @-webkit-keyframes logo {
 	0% {
