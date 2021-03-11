@@ -1,6 +1,7 @@
 // If you don't want the particles, change the following to false:
 const doParticles = true;
-
+var players = [];
+var clicked = false;
 
 function getWidth() { // credit to travis on stack overflow
   return Math.max(
@@ -20,7 +21,8 @@ if (doParticles) {
 let t;
 $(document).ready(()=>{
 	t = $(".ip").html();
-})
+});
+
 $(document).on("click",".ip",()=>{
 	let copy = document.createElement("textarea");
 	copy.style.position = "absolute";
@@ -32,21 +34,59 @@ $(document).on("click",".ip",()=>{
 	copy.select();
 	document.execCommand("copy");
 	$(".ip").html("<span class='extrapad'>IP copied!</span>");
+  clicked = true;
 	setTimeout(function(){
 		$(".ip").html(t);
 		var copy = document.getElementById("ta");
 		copy.parentNode.removeChild(copy);
-	},800);
+    clicked = false;
+	}, 1000);
 });
+
+$(document).on({
+  mouseenter: () => {
+    if (!clicked) {
+      $(".ip").html("<span class='extrapad'>Click to copy IP</span>");
+    } else {
+      //$(".ip").html("<span class='extrapad'>IP copied!</span>");
+    }
+  },
+  mouseleave: () => {
+    $(".ip").html(t);
+	  var copy = document.getElementById("ta");
+	  copy.parentNode.removeChild(copy);
+  }
+}, ".ip");
+
+$(document).on({
+  mouseenter: () => {
+    $(".online-players").html(`<p><span class='extrapad' style="color: white;">${players.join(', ')}</span></p>`);
+  },
+  mouseleave: () => {
+    $(".online-players").html("");
+  }
+}, ".count");
 
 // This is to fetch the player count
 $(document).ready(()=>{
-  const ip = $(".sip").attr("data-ip");
-  const port = $(".sip").attr("data-port");
+  const ip = $(".count").attr("data-ip");
+  const port = $(".count").attr("data-port");
 
   $.get(`https://mcapi.us/server/status?ip=${ip}&port=${port}`, (result)=>{
     if (result.online) {
-      $(".sip").html(result.players.now);
+      $(".count").html(result.players.now);
+      $.get(`https://mcapi.us/server/query?ip=${ip}&port=${port}`, (queryResult)=>{
+        if (queryResult.players.list.length > 10) {
+          for (var i = 0; i < 10; i++) {
+            players.push(queryResult.players.list[i]);
+          }
+          players.push('and more!');
+        } else {
+          for (const player of queryResult.players.list) {
+            players.push(player);
+          }
+        }
+      });
     } else {
       $(".playercount").html("Server isn't online!");
     }
@@ -55,7 +95,20 @@ $(document).ready(()=>{
   setInterval(()=>{
     $.get(`https://mcapi.us/server/status?ip=${ip}&port=${port}`, (result)=>{
       if (result.online) {
-        $(".sip").html(result.players.now);
+        $(".count").html(result.players.now);
+        $.get(`https://mcapi.us/server/query?ip=${ip}&port=${port}`, (queryResult)=>{
+          players = [];
+          if (queryResult.players.list.length > 10) {
+            for (var i = 0; i < 10; i++) {
+              players.push(queryResult.players.list[i]);
+            }
+            players.push('and more!');
+          } else {
+            for (const player of queryResult.players.list) {
+              players.push(player);
+            }
+          }
+        });
       } else {
         $(".playercount").html("Server isn't online!");
       }
